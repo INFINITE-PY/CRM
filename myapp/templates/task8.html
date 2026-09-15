@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><title>Задача 8</title></head>
+<body>
+    <h2>8. Количество записей на каждый курс (annotate)</h2>
+
+    <h3>Добавить курс:</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Создать курс</button>
+    </form>
+    <br>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Название курса</th>
+                <th>Количество записей</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{ course.name }}</td>
+                <td>{{ course.enrollment_count }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="2">Курсов нет</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p><a href="{% url 'index' %}">← На главную</a></p>
+</body>
+</html>
