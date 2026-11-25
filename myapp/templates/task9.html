@@ -1,31 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head><title>Задача 9</title></head>
-<body>
-    <h2>9. Средняя зарплата преподавателей (aggregate)</h2>
+{% extends 'base.html' %}
 
-    <h3>Добавить преподавателя:</h3>
+{% block title %}Задача 9{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <span class="eyebrow">Задача 09</span>
+    <h1>Средняя зарплата <span class="accent">преподавателей</span></h1>
+    <p class="subtitle">aggregate + Avg — одно значение по всей таблице одним запросом.</p>
+</div>
+
+<div class="card">
+    <p class="card-title"><span class="icon">➕</span> Добавить преподавателя</p>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Добавить</button>
     </form>
-    <br>
+</div>
 
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Показатель</th>
-                <th>Значение</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Средняя зарплата</td>
-                <td><strong>{{ avg_salary|floatformat:2|default:"0" }} руб.</strong></td>
-            </tr>
-        </tbody>
-    </table>
-    <p><a href="{% url 'index' %}">← На главную</a></p>
-</body>
-</html>
+<div class="card">
+    <p class="card-title"><span class="icon">💰</span> Результат</p>
+    <div class="stat">
+        <span class="stat-value">{{ avg_salary|floatformat:2|default:"0" }} ₽</span>
+        <span class="stat-label">средняя зарплата преподавателя</span>
+    </div>
+</div>
+
+<a class="back" href="{% url 'index' %}">← На главную</a>
+{% endblock %}

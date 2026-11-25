@@ -1,35 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head><title>Задача 8</title></head>
-<body>
-    <h2>8. Количество записей на каждый курс (annotate)</h2>
+{% extends 'base.html' %}
 
-    <h3>Добавить курс:</h3>
+{% block title %}Задача 8{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <span class="eyebrow">Задача 08</span>
+    <h1>Записи на <span class="accent">курс</span></h1>
+    <p class="subtitle">annotate + Count — сколько студентов записалось на каждый курс.</p>
+</div>
+
+<div class="card">
+    <p class="card-title"><span class="icon">➕</span> Добавить курс</p>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Создать курс</button>
     </form>
-    <br>
+</div>
 
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Название курса</th>
-                <th>Количество записей</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for course in courses %}
-            <tr>
-                <td>{{ course.name }}</td>
-                <td>{{ course.enrollment_count }}</td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="2">Курсов нет</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <p><a href="{% url 'index' %}">← На главную</a></p>
-</body>
-</html>
+<div class="card">
+    <p class="card-title"><span class="icon">🎓</span> Курсы</p>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Название курса</th>
+                    <th>Количество записей</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.name }}</td>
+                    <td><span class="tag">{{ course.enrollment_count }}</span></td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="2" class="empty">Курсов нет</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<a class="back" href="{% url 'index' %}">← На главную</a>
+{% endblock %}

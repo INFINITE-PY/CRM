@@ -1,19 +1,83 @@
-<!DOCTYPE html>
-<html>
-<head><title>Университет</title></head>
-<body>
-    <h1>Список страниц</h1>
-    <ul>
-        <li><a href="{% url 'task1' %}">Задача 1</a></li>
-        <li><a href="{% url 'task2' %}">Задача 2</a></li>
-        <li><a href="{% url 'task3' %}">Задача 3</a></li>
-        <li><a href="{% url 'task4' %}">Задача 4</a></li>
-        <li><a href="{% url 'task5' %}">Задача 5</a></li>
-        <li><a href="{% url 'task6' %}">Задача 6</a></li>
-        <li><a href="{% url 'task7' %}">Задача 7</a></li>
-        <li><a href="{% url 'task8' %}">Задача 8</a></li>
-        <li><a href="{% url 'task9' %}">Задача 9</a></li>
-        <li><a href="{% url 'task10' %}">Задача 10</a></li>
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <span class="eyebrow">📚 Практика Django ORM</span>
+    <h1>Список <span class="accent">задач</span></h1>
+    <p class="subtitle">Десять страниц с запросами к базе данных: связи, оптимизация, агрегация. Выбери задачу и переходи.</p>
+</div>
+
+<div class="grid">
+    <a class="card task-card" href="{% url 'task1' %}" style="animation-delay:.02s">
+        <div class="task-num">1</div>
+        <p class="task-name">Студенты и группы</p>
+        <p class="task-desc">Список студентов с названием их группы</p>
+        <span class="tag">select_related</span>
+    </a>
+
+    <a class="card task-card" href="{% url 'task2' %}" style="animation-delay:.06s">
+        <div class="task-num">2</div>
+        <p class="task-name">Оценки и студенты</p>
+        <p class="task-desc">Оценки с предметом и студентом одной выборкой</p>
+        <span class="tag">select_related</span>
+    </a>
+
+    <a class="card task-card" href="{% url 'task3' %}" style="animation-delay:.1s">
+        <div class="task-num">3</div>
+        <p class="task-name">Все оценки студента</p>
+        <p class="task-desc">Каждый студент и полный список его оценок</p>
+        <span class="tag pink">prefetch_related</span>
+    </a>
+
+    <a class="card task-card" href="{% url 'task4' %}" style="animation-delay:.14s">
+        <div class="task-num">4</div>
+        <p class="task-name">Авторы и книги</p>
+        <p class="task-desc">Авторы со всеми своими книгами и ценами</p>
+        <span class="tag pink">prefetch_related</span>
+    </a>
+
+    <a class="card task-card" href="{% url 'task5' %}" style="animation-delay:.18s">
+        <div class="task-num">5</div>
+        <p class="task-name">Студенты в группе</p>
+        <p class="task-desc">Количество студентов в каждой группе</p>
+        <span class="tag green">annotate</span>
+    </a>
+
+    <a class="card task-card" href="{% url 'task6' %}" style="animation-delay:.22s">
+        <div class="task-num">6</div>
+        <p class="task-name">Средний балл</p>
+        <p class="task-desc">Средняя оценка каждого студента</p>
+        <span class="tag green">annotate</span>
+    </a>
+
+    <a class="card task-card" href="{% url 'task7' %}" style="animation-delay:.26s">
+        <div class="task-num">7</div>
+        <p class="task-name">Книги авторов</p>
+        <p class="task-desc">Сколько книг написал каждый автор</p>
+        <span class="tag green">annotate</span>
+    </a>
+
+    <a class="card task-card" href="{% url 'task8' %}" style="animation-delay:.3s">
+        <div class="task-num">8</div>
+        <p class="task-name">Записи на курс</p>
+        <p class="task-desc">Число записей на каждый курс</p>
+        <span class="tag green">annotate</span>
+    </a>
+
+    <a class="card task-card" href="{% url 'task9' %}" style="animation-delay:.34s">
+        <div class="task-num">9</div>
+        <p class="task-name">Зарплата преподавателей</p>
+        <p class="task-desc">Средняя зарплата по всем преподавателям</p>
+        <span class="tag">aggregate</span>
+    </a>
+
+    <a class="card task-card" href="{% url 'task10' %}" style="animation-delay:.38s">
+        <div class="task-num">10</div>
+        <p class="task-name">Стоимость курсов</p>
+        <p class="task-desc">Общая сумма стоимости всех курсов</p>
+        <span class="tag">aggregate</span>
+    </a>
+</div>
+{% endblock %}

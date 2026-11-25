@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Главная{% endblock %} · University CRM</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <header class="topbar">
+        <a class="brand" href="{% url 'index' %}">
+            <span class="brand-icon">🎓</span>
+            <span>University<em>CRM</em></span>
+        </a>
+        <nav class="nav">
+            <a class="nav-link{% if request.resolver_match.url_name == 'index' %} active{% endif %}" href="{% url 'index' %}">Главная</a>
+            {% for i in "123456789" %}
+            <a class="nav-link{% if request.resolver_match.url_name == 'task'|add:i %} active{% endif %}" href="{% url 'task'|add:i %}">{{ i }}</a>
+            {% endfor %}
+            <a class="nav-link{% if request.resolver_match.url_name == 'task10' %} active{% endif %}" href="{% url 'task10' %}">10</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <span>University CRM · Django ORM практика</span>
+        <span class="footer-dot">·</span>
+        <span>select_related · prefetch_related · annotate · aggregate</span>
+    </footer>
+</body>
+</html>

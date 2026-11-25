@@ -1,41 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head><title>Задача 4</title></head>
-<body>
-    <h2>4. Авторы и их книги (prefetch_related)</h2>
+{% extends 'base.html' %}
 
-    <h3>Добавить автора:</h3>
+{% block title %}Задача 4{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <span class="eyebrow">Задача 04</span>
+    <h1>Авторы и их <span class="accent">книги</span></h1>
+    <p class="subtitle">prefetch_related — книги каждого автора загружаются одной дополнительной выборкой.</p>
+</div>
+
+<div class="card">
+    <p class="card-title"><span class="icon">➕</span> Добавить автора</p>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Добавить автора</button>
     </form>
-    <br>
+</div>
 
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Автор</th>
-                <th>Список книг</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for author in authors %}
-            <tr>
-                <td>{{ author.name }}</td>
-                <td>
-                    {% for book in author.books.all %}
-                        «{{ book.title }}» ({{ book.price }} руб.){% if not forloop.last %}; {% endif %}
-                    {% empty %}
-                        Книг нет
-                    {% endfor %}
-                </td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="2">Авторов нет</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <p><a href="{% url 'index' %}">← На главную</a></p>
-</body>
-</html>
+<div class="card">
+    <p class="card-title"><span class="icon">📚</span> Авторы</p>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Автор</th>
+                    <th>Список книг</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for author in authors %}
+                <tr>
+                    <td>{{ author.name }}</td>
+                    <td>
+                        {% for book in author.books.all %}
+                            <span class="tag">«{{ book.title }}» · {{ book.price }} руб.</span>
+                        {% empty %}
+                            <span class="empty">Книг нет</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="2" class="empty">Авторов нет</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<a class="back" href="{% url 'index' %}">← На главную</a>
+{% endblock %}

@@ -1,32 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head><title>Задача 3</title></head>
-<body>
-    <h2>3. Студенты и все их оценки (prefetch_related)</h2>
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Студент</th>
-                <th>Все оценки</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for student in students %}
-            <tr>
-                <td>{{ student.name }}</td>
-                <td>
-                    {% for grade in student.grades.all %}
-                        {{ grade.score }}{% if not forloop.last %}, {% endif %}
-                    {% empty %}
-                        Оценок нет
-                    {% endfor %}
-                </td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="2">Студентов нет</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <p><a href="{% url 'index' %}">← На главную</a></p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Задача 3{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <span class="eyebrow">Задача 03</span>
+    <h1>Все оценки <span class="accent">студента</span></h1>
+    <p class="subtitle">prefetch_related — оценки каждого студента подгружаются отдельной пачкой, а не в цикле.</p>
+</div>
+
+<div class="card">
+    <p class="card-title"><span class="icon">📊</span> Студенты и оценки</p>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Студент</th>
+                    <th>Все оценки</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.name }}</td>
+                    <td>
+                        {% for grade in student.grades.all %}
+                            <span class="tag">{{ grade.score }}</span>
+                        {% empty %}
+                            <span class="empty">Оценок нет</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="2" class="empty">Студентов нет</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<a class="back" href="{% url 'index' %}">← На главную</a>
+{% endblock %}

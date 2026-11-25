@@ -1,26 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head><title>Задача 7</title></head>
-<body>
-    <h2>7. Количество книг у каждого автора (annotate)</h2>
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Автор</th>
-                <th>Количество книг</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for author in authors %}
-            <tr>
-                <td>{{ author.name }}</td>
-                <td>{{ author.book_count }}</td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="2">Авторов нет</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <p><a href="{% url 'index' %}">← На главную</a></p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Задача 7{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <span class="eyebrow">Задача 07</span>
+    <h1>Количество книг у <span class="accent">автора</span></h1>
+    <p class="subtitle">annotate + Count — число книг каждого автора за один запрос.</p>
+</div>
+
+<div class="card">
+    <p class="card-title"><span class="icon">📚</span> Авторы</p>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Автор</th>
+                    <th>Количество книг</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for author in authors %}
+                <tr>
+                    <td>{{ author.name }}</td>
+                    <td><span class="tag">{{ author.book_count }}</span></td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="2" class="empty">Авторов нет</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<a class="back" href="{% url 'index' %}">← На главную</a>
+{% endblock %}

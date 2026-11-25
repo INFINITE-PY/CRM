@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head><title>Задача 10</title></head>
-<body>
-    <h2>10. Общая стоимость всех курсов (aggregate)</h2>
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Показатель</th>
-                <th>Сумма</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Итоговая стоимость курсов</td>
-                <td><strong>{{ total_price|default:"0" }} руб.</strong></td>
-            </tr>
-        </tbody>
-    </table>
-    <p><a href="{% url 'index' %}">← На главную</a></p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Задача 10{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <span class="eyebrow">Задача 10</span>
+    <h1>Общая стоимость <span class="accent">курсов</span></h1>
+    <p class="subtitle">aggregate + Sum — сумма цен всех курсов в базе.</p>
+</div>
+
+<div class="card">
+    <p class="card-title"><span class="icon">💎</span> Итог</p>
+    <div class="stat">
+        <span class="stat-value">{{ total_price|default:"0" }} ₽</span>
+        <span class="stat-label">общая стоимость всех курсов</span>
+    </div>
+</div>
+
+<a class="back" href="{% url 'index' %}">← На главную</a>
+{% endblock %}
